@@ -25,7 +25,7 @@ resource "aws_nat_gateway" "nat_gateway_az1" {
     Name = "${var.project_name}-${var.environment}-ng-az1"
   }
 
-  depends_on = [var.internet_gateway_id]
+  depends_on = [var.internet_gateway]
 }
 
 # create nat gateway in public subnet az2
@@ -37,7 +37,7 @@ resource "aws_nat_gateway" "nat_gateway_az2" {
     Name = "${var.project_name}-${var.environment}-ng-az2"
   }
 
-  depends_on = [var.internet_gateway_id]
+  depends_on = [var.internet_gateway]
 }
 
 # create private route table az1 and add route through nat gateway az1
