@@ -43,7 +43,7 @@ resource "aws_security_group" "bastion_security_group" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.ssh.ip]
   }
 
   egress {
@@ -83,7 +83,7 @@ resource "aws_security_group" "app_server_security_group" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
+    protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -99,7 +99,7 @@ resource "aws_security_group" "database_security_group" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description     = "mysql/aurora access from app servers"
+    description     = "mysql/aurora access"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
@@ -107,7 +107,7 @@ resource "aws_security_group" "database_security_group" {
   }
 
   ingress {
-    description     = "custom access from bastion"
+    description     = "custom access"
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
